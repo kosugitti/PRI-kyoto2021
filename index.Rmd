@@ -49,29 +49,11 @@ Rのサイトは[こちら](https://cloud.r-project.org/)です。Rの最新バ�
 
 RStudioのサイトは[こちら](https://www.rstudio.com/)です。RStudioの最新バージョンは1.4.1103ですので，ご準備ください。OSに応じて最新版のインストーラをダウンロードし，実行してください。
 
-## 関連するパッケージを準備する
+## rstanの準備をする
 
-RおよびRStudioのインストールが終われば，RStudioを起動し，次のコードを実行してください。
+rstanというパッケージを準備していただきたいのですが，それについては[こちらの準備サイト](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started-(Japanese))を参考にして，各自でご準備ください。
 
-関連パッケージも含め，多くのパッケージが導入されますのでしばらくお待ちください。
-
-```{r eval=F}
-install.packages('tidyverse')
-install.packages('summarytools')
-install.packages('ggrepel')
-install.packages('rstan')
-install.packages('bayesplot')
-install.packages('brms')
-```
-
-
-すでにRやRStudio，パッケージの導入をしたことがある人も，次のコードでパッケージを最新版にアップデートすることができますので，ご確認ください。
-
-```{r,eval=F}
-update.packages(ask=F)
-```
-
-## 問題なく動くか確認する
+## rstanが問題なく動くか確認する
 
 環境の準備ができれば，次のコードをコピー＆ペーストで実行してください。
 
@@ -111,3 +93,4 @@ fit.samp
 なにやら上記のような文字列が出ていたら準備完了です。
 
 Rのコードについては，本サイトからコピー＆ペーストで使ってもらって結構ですが，Rの基本的な使い方，RStudioの基本的な使い方，ggplotによる描画の方法などについて，「[RユーザのためのRStudio入門](https://amzn.to/2GmX9Ot)」 を参考に予習しておいていただけると，理解が進むと思います。
+
