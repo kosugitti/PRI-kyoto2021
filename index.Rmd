@@ -1,0 +1,12 @@
+---
+name: "霊長類研究所集中講義(心理統計)　2020年度"
+navbar:
+  title: "霊長類研究所集中講義(心理統計)2020年度・資料"
+  left: 
+    - text: "about"
+      href: "about.html"
+output:
+  html_document:
+    css: site_style.css
+output_dir: "docs"
+---
