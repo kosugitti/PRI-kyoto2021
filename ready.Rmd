@@ -1,18 +1,7 @@
 ---
-name: "霊長類研究所集中講義(心理統計)　2020年度"
-title: はじめに
-navbar:
-  title: "霊長類研究所集中講義(心理統計)2020年度・資料"
-  left: 
-    - text: "index"
-      href: "index.html"
-output:
-  html_document:
-    css: site_style.css
-output_dir: "docs"
+title: "霊長類研究所集中講義(心理統計)2020年度・資料"
+output: html_document
 ---
-
-# はじめに
 
 ## 準備・確認していただきたいもの
 
@@ -112,3 +101,4 @@ fit.samp
 なにやら上記のような文字列が出ていたら準備完了です。
 
 Rのコードについては，本サイトからコピー＆ペーストで使ってもらって結構ですが，Rの基本的な使い方，RStudioの基本的な使い方，ggplotによる描画の方法などについて，「[RユーザのためのRStudio入門](https://amzn.to/2GmX9Ot)」 を参考に予習しておいていただけると，理解が進むと思います。
+
