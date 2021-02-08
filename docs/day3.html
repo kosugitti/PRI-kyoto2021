@@ -11,7 +11,7 @@
 
 
 
-<title>はじめに</title>
+<title>Day 3;2021.02.25</title>
 
 <script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -383,133 +383,14 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">はじめに</h1>
+<h1 class="title toc-ignore">Day 3;2021.02.25</h1>
 
 </div>
 
 
-<div id="はじめに" class="section level1">
-<h1>はじめに</h1>
-<div id="準備確認していただきたいもの" class="section level2">
-<h2>準備・確認していただきたいもの</h2>
-<ul>
-<li>PC環境の確認</li>
-<li>Rの最新版を準備する</li>
-<li>RStudioの最新版を準備する</li>
-<li>関連するパッケージを準備する</li>
-<li>問題なく動くかどうかを確認する</li>
-</ul>
-</div>
-<div id="pc環境の確認" class="section level2">
-<h2>PC環境の確認</h2>
-<p>Windowsユーザの方は以下の点にご注意ください</p>
-<ul>
-<li>ユーザー名に2バイト文字(全角文字)が含まれているとRStudioの描画やパッケージのインストールなどでエラーが生じることがあります。</li>
-<li>2バイト文字でアカウントを作っている場合→半角英数文字の管理者権限を持ったアカウントを新たに作ってください</li>
-<li>ウイルス対策ソフトが常駐していると，rstanのコンパイルを阻むことがあります。ウイルス対策ソフトを停止した上で，パッケージのインストールやコードの実行を行っていただくことをお勧めします。</li>
-</ul>
-</div>
-<div id="rの最新版を準備する" class="section level2">
-<h2>Rの最新版を準備する</h2>
-<p>Rのサイトは<a href="https://cloud.r-project.org/">こちら</a>です。Rの最新バージョンは4.0.3ですので，ご準備ください。</p>
-<div id="windowsユーザの場合" class="section level3">
-<h3>Windowsユーザの場合</h3>
-<ul>
-<li>Download and Install Rより，base(基本・R本体)とRtools(コンパイラなど)をダウンロード，インストールしてください。</li>
-<li>インストールする場所やオプションについて不明な場合は，全てインストーラのデフォルト設定で構いません。「次へ」のボタンを繰り返しクリックし，インストールしてください。</li>
-<li>Rtoolsをインストールするときも，不明な場合はデフォルトの設定で構いませんので，「次へ」のボタンを繰り返しクリックしてください。</li>
-<li>デフォルトでPATHにRtoolsへのパスが追記されます。選択するときに除外しないように注意してください。</li>
-</ul>
-</div>
-<div id="macユーザの場合" class="section level3">
-<h3>Macユーザの場合</h3>
-<ul>
-<li>Download R for (Mac) OS Xより，R-4.0.3.pkgをダウンロードし，実行してください。</li>
-</ul>
-</div>
-</div>
-<div id="rstudioの最新版を準備する" class="section level2">
-<h2>RStudioの最新版を準備する</h2>
-<p>RStudioのサイトは<a href="https://www.rstudio.com/">こちら</a>です。RStudioの最新バージョンは1.4.1103ですので，ご準備ください。OSに応じて最新版のインストーラをダウンロードし，実行してください。</p>
-</div>
-<div id="関連するパッケージを準備する" class="section level2">
-<h2>関連するパッケージを準備する</h2>
-<p>RおよびRStudioのインストールが終われば，RStudioを起動し，次のコードを実行してください。</p>
-<p>関連パッケージも含め，多くのパッケージが導入されますのでしばらくお待ちください。</p>
-<pre class="r"><code>install.packages(&#39;tidyverse&#39;)
-install.packages(&#39;summarytools&#39;)
-install.packages(&#39;ggrepel&#39;)
-install.packages(&#39;rstan&#39;)
-install.packages(&#39;bayesplot&#39;)
-install.packages(&#39;brms&#39;)</code></pre>
-<p>すでにRやRStudio，パッケージの導入をしたことがある人も，次のコードでパッケージを最新版にアップデートすることができますので，ご確認ください。</p>
-<pre class="r"><code>update.packages(ask=F)</code></pre>
-</div>
-<div id="問題なく動くか確認する" class="section level2">
-<h2>問題なく動くか確認する</h2>
-<p>環境の準備ができれば，次のコードをコピー＆ペーストで実行してください。</p>
-<pre class="r"><code>library(rstan)
-rstan_options(auto_write = TRUE)
-options(mc.cores = parallel::detectCores())
-stancode &lt;- &quot;
-data {
-int&lt;lower=0&gt; J; // number of schools 
-real y[J]; // estimated treatment effects
-real&lt;lower=0&gt; sigma[J]; // s.e. of effect estimates 
-}
-parameters {
-real mu; 
-real&lt;lower=0&gt; tau;
-real eta[J];
-}
-transformed parameters {
-real theta[J];
-for (j in 1:J)
-theta[j] = mu + tau * eta[j];
-}
-model {
-target += normal_lpdf(eta | 0, 1);
-target += normal_lpdf(y | theta, sigma);
-}
-&quot;
-schools_dat &lt;- list(J = 8, y = c(28, 8, -3, 7, -1, 1, 18, 12), 
-                    sigma = c(15, 10, 16, 11, 9, 11, 10, 18))
-model.ex &lt;- stan_model(model_code = stancode, model_name = &quot;school&quot;)
-fit.samp &lt;- sampling(model.ex, data = schools_dat, iter = 1000, 
-                     chains = 4)
-fit.samp</code></pre>
-<pre><code>## Inference for Stan model: school.
-## 4 chains, each with iter=1000; warmup=500; thin=1; 
-## post-warmup draws per chain=500, total post-warmup draws=2000.
-## 
-##            mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
-## mu         7.73    0.13 4.86  -2.45   4.56   7.74  10.85  17.34  1424 1.00
-## tau        6.52    0.23 5.59   0.18   2.31   5.49   8.90  19.97   606 1.01
-## eta[1]     0.38    0.02 0.91  -1.47  -0.25   0.42   1.00   2.10  1733 1.00
-## eta[2]     0.05    0.02 0.87  -1.72  -0.51   0.06   0.60   1.78  1897 1.00
-## eta[3]    -0.20    0.02 0.89  -1.89  -0.78  -0.21   0.38   1.54  2409 1.00
-## eta[4]    -0.02    0.02 0.83  -1.64  -0.56  -0.03   0.50   1.61  2434 1.00
-## eta[5]    -0.35    0.02 0.91  -2.13  -0.97  -0.33   0.22   1.48  2039 1.00
-## eta[6]    -0.21    0.02 0.88  -1.86  -0.79  -0.21   0.35   1.63  2330 1.00
-## eta[7]     0.35    0.02 0.92  -1.55  -0.22   0.35   0.97   2.08  2101 1.00
-## eta[8]     0.08    0.02 0.89  -1.77  -0.52   0.07   0.68   1.71  2552 1.00
-## theta[1]  11.28    0.22 8.21  -1.60   5.94  10.00  14.93  32.66  1431 1.00
-## theta[2]   8.02    0.12 6.17  -4.54   4.44   8.00  11.71  20.53  2434 1.00
-## theta[3]   5.92    0.20 7.86 -12.46   2.13   6.82  10.49  20.01  1491 1.00
-## theta[4]   7.46    0.14 6.17  -4.71   3.56   7.52  11.53  19.36  1881 1.00
-## theta[5]   5.08    0.14 6.23  -8.46   1.70   5.48   9.17  16.17  1912 1.00
-## theta[6]   6.00    0.14 6.72  -9.64   2.22   6.43  10.34  18.28  2190 1.00
-## theta[7]  10.63    0.16 7.03  -1.54   5.94   9.88  14.76  26.23  2034 1.00
-## theta[8]   8.36    0.18 7.68  -6.41   3.94   8.14  12.43  24.90  1796 1.00
-## lp__     -39.46    0.12 2.68 -45.47 -41.12 -39.20 -37.53 -35.05   522 1.01
-## 
-## Samples were drawn using NUTS(diag_e) at Mon Feb  8 17:25:27 2021.
-## For each parameter, n_eff is a crude measure of effective sample size,
-## and Rhat is the potential scale reduction factor on split chains (at 
-## convergence, Rhat=1).</code></pre>
-<p>なにやら上記のような文字列が出ていたら準備完了です。</p>
-<p>Rのコードについては，本サイトからコピー＆ペーストで使ってもらって結構ですが，Rの基本的な使い方，RStudioの基本的な使い方，ggplotによる描画の方法などについて，「<a href="https://amzn.to/2GmX9Ot">RユーザのためのRStudio入門</a>」 を参考に予習しておいていただけると，理解が進むと思います。</p>
-</div>
+<div id="day-3" class="section level2">
+<h2>Day 3</h2>
+<p>now under construction.</p>
 </div>
 
 
