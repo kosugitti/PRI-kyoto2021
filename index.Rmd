@@ -2,7 +2,6 @@
 name: "霊長類研究所集中講義(心理統計)　2020年度"
 title: はじめに
 navbar:
-  title: "霊長類研究所集中講義(心理統計)2020年度・資料"
   left: 
     - text: "index"
       href: "index.html"
