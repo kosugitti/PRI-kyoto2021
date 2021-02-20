@@ -1,5 +1,5 @@
 ---
-name: "霊長類研究所集中講義(心理統計)　2020年度"
+name: "霊長類研究所集中講義(生物科学特殊講義10)　2020年度"
 title: はじめに
 navbar:
   left: 
@@ -32,7 +32,7 @@ Windowsユーザの方は以下の点にご注意ください
 
 ## Rの最新版を準備する
 
-Rのサイトは[こちら](https://cloud.r-project.org/)です。Rの最新バージョンは4.0.3ですので，ご準備ください。
+Rのサイトは[こちら](https://cloud.r-project.org/)です。Rの最新バージョンは4.0.4です。少なくとも4.0.x以上の環境をご準備ください。
 
 ### Windowsユーザの場合
 
@@ -43,7 +43,7 @@ Rのサイトは[こちら](https://cloud.r-project.org/)です。Rの最新バ�
 
 ### Macユーザの場合
 
-+ Download R for (Mac) OS Xより，R-4.0.3.pkgをダウンロードし，実行してください。
++ Download R for (Mac) OS Xより，R-4.0.4.pkgをダウンロードし，実行してください。
 
 ## RStudioの最新版を準備する
 
@@ -82,15 +82,32 @@ target += normal_lpdf(eta | 0, 1);
 target += normal_lpdf(y | theta, sigma);
 }
 "
-schools_dat <- list(J = 8, y = c(28, 8, -3, 7, -1, 1, 18, 12), 
-                    sigma = c(15, 10, 16, 11, 9, 11, 10, 18))
+schools_dat <- list(
+  J = 8, y = c(28, 8, -3, 7, -1, 1, 18, 12),
+  sigma = c(15, 10, 16, 11, 9, 11, 10, 18)
+)
 model.ex <- stan_model(model_code = stancode, model_name = "school")
-fit.samp <- sampling(model.ex, data = schools_dat, iter = 1000, 
-                     chains = 4)
+fit.samp <- sampling(model.ex,
+  data = schools_dat, iter = 1000,
+  chains = 4
+)
 fit.samp
 ```
 
 なにやら上記のような文字列が出ていたら準備完了です。
 
 Rのコードについては，本サイトからコピー＆ペーストで使ってもらって結構ですが，Rの基本的な使い方，RStudioの基本的な使い方，ggplotによる描画の方法などについて，「[RユーザのためのRStudio入門](https://amzn.to/2GmX9Ot)」 を参考に予習しておいていただけると，理解が進むと思います。
+
+## 必要なパッケージなど
+
+次のパッケージを授業の中で使いますので，合わせてご準備ください。
+
++ tidyverse
++ bayesplot
++ bayestestR
++ brms
++ bridgesampling
++ effectsize
++ loo
++ MASS
 

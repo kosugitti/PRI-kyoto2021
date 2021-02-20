@@ -13,13 +13,22 @@
 
 <title>Day 1;2021.02.24</title>
 
-<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -37,11 +46,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -54,32 +58,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 <link rel="stylesheet" href="site_style.css" type="text/css" />
@@ -91,10 +69,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -111,40 +85,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -172,7 +119,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -184,7 +131,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -195,10 +142,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -210,7 +170,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -336,13 +295,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -379,7 +338,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -388,9 +347,872 @@ div.tocify {
 </div>
 
 
-<div id="day-1" class="section level2">
-<h2>Day 1</h2>
-<p>now under construction.</p>
+<div id="day-1" class="section level1">
+<h1>Day 1</h1>
+<div id="rstudioを使ってコードを書く" class="section level2">
+<h2>RStudioを使ってコードを書く</h2>
+<div id="プロジェクトでの管理" class="section level3">
+<h3>プロジェクトでの管理</h3>
+</div>
+<div id="rの基礎" class="section level3">
+<h3>rの基礎</h3>
+</div>
+<div id="rの関数とデータの型" class="section level3">
+<h3>Rの関数とデータの型</h3>
+<div id="四則演算" class="section level4">
+<h4>四則演算</h4>
+<pre class="r"><code>1 + 3</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>3 - 5</code></pre>
+<pre><code>## [1] -2</code></pre>
+<pre class="r"><code>5 * 7</code></pre>
+<pre><code>## [1] 35</code></pre>
+<pre class="r"><code>8 / 2</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="関数を使おう" class="section level4">
+<h4>関数を使おう</h4>
+<pre class="r"><code>sqrt(4)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>help(sqrt)</code></pre>
+</div>
+<div id="代入" class="section level4">
+<h4>代入</h4>
+<pre class="r"><code>obj &lt;- 2
+obj</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>obj2 &lt;- 2
+obj3 &lt;- 3
+obj2 + obj3</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>obj &lt;- 1:10
+obj</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>obj * 2</code></pre>
+<pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
+<pre class="r"><code>obj &lt;- matrix(c(1:10), nrow = 5)
+obj</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    6
+## [2,]    2    7
+## [3,]    3    8
+## [4,]    4    9
+## [5,]    5   10</code></pre>
+<div id="代入したものの操作" class="section level5">
+<h5>代入したものの操作</h5>
+<pre class="r"><code>obj * 2</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   12
+## [2,]    4   14
+## [3,]    6   16
+## [4,]    8   18
+## [5,]   10   20</code></pre>
+<pre class="r"><code>obj[1, ]</code></pre>
+<pre><code>## [1] 1 6</code></pre>
+<pre class="r"><code>obj[, 2]</code></pre>
+<pre><code>## [1]  6  7  8  9 10</code></pre>
+</div>
+</div>
+<div id="なんでも入れれるlist型" class="section level4">
+<h4>なんでも入れれるlist型</h4>
+<pre class="r"><code>obj &lt;- list(
+  name = c(&quot;kosugi&quot;, &quot;tanaka&quot;, &quot;suzuki&quot;),
+  gender = c(&quot;male&quot;, &quot;female&quot;, &quot;male&quot;),
+  height = c(170, 160),
+  weight = c(70.6, 80.9, 90.6, 40.3)
+)
+obj</code></pre>
+<pre><code>## $name
+## [1] &quot;kosugi&quot; &quot;tanaka&quot; &quot;suzuki&quot;
+## 
+## $gender
+## [1] &quot;male&quot;   &quot;female&quot; &quot;male&quot;  
+## 
+## $height
+## [1] 170 160
+## 
+## $weight
+## [1] 70.6 80.9 90.6 40.3</code></pre>
+<div id="代入したものの操作-1" class="section level5">
+<h5>代入したものの操作</h5>
+<pre class="r"><code>obj$name</code></pre>
+<pre><code>## [1] &quot;kosugi&quot; &quot;tanaka&quot; &quot;suzuki&quot;</code></pre>
+</div>
+</div>
+<div id="データの型" class="section level4">
+<h4>データの型</h4>
+<pre class="r"><code>str(obj)</code></pre>
+<pre><code>## List of 4
+##  $ name  : chr [1:3] &quot;kosugi&quot; &quot;tanaka&quot; &quot;suzuki&quot;
+##  $ gender: chr [1:3] &quot;male&quot; &quot;female&quot; &quot;male&quot;
+##  $ height: num [1:2] 170 160
+##  $ weight: num [1:4] 70.6 80.9 90.6 40.3</code></pre>
+<div id="数字文字factor型" class="section level5">
+<h5>数字，文字，factor型</h5>
+<pre class="r"><code>obj$gender &lt;- as.factor(obj$gender)
+str(obj)</code></pre>
+<pre><code>## List of 4
+##  $ name  : chr [1:3] &quot;kosugi&quot; &quot;tanaka&quot; &quot;suzuki&quot;
+##  $ gender: Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 1 2
+##  $ height: num [1:2] 170 160
+##  $ weight: num [1:4] 70.6 80.9 90.6 40.3</code></pre>
+</div>
+</div>
+<div id="データフレーム型" class="section level4">
+<h4>データフレーム型</h4>
+<pre class="r"><code>obj &lt;- data.frame(
+  list(
+    name = c(&quot;kosugi&quot;, &quot;tanaka&quot;, &quot;suzuki&quot;),
+    gender = c(1, 2, 1),
+    hight = c(170, 160, 170),
+    weight = c(70.6, 80.9, 90.6)
+  )
+)</code></pre>
+<div id="代入したものの操作-2" class="section level5">
+<h5>代入したものの操作</h5>
+<pre class="r"><code>str(obj)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  4 variables:
+##  $ name  : chr  &quot;kosugi&quot; &quot;tanaka&quot; &quot;suzuki&quot;
+##  $ gender: num  1 2 1
+##  $ hight : num  170 160 170
+##  $ weight: num  70.6 80.9 90.6</code></pre>
+<pre class="r"><code>obj$gender &lt;- factor(obj$gender, labels = c(&quot;male&quot;, &quot;female&quot;))
+obj</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">gender</th>
+<th align="right">hight</th>
+<th align="right">weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">kosugi</td>
+<td align="left">male</td>
+<td align="right">170</td>
+<td align="right">70.6</td>
+</tr>
+<tr class="even">
+<td align="left">tanaka</td>
+<td align="left">female</td>
+<td align="right">160</td>
+<td align="right">80.9</td>
+</tr>
+<tr class="odd">
+<td align="left">suzuki</td>
+<td align="left">male</td>
+<td align="right">170</td>
+<td align="right">90.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="rstanを使ってみよう8school" class="section level3">
+<h3>rstanを使ってみよう(8school)</h3>
+<pre class="r"><code>library(rstan)</code></pre>
+<pre><code>## Loading required package: StanHeaders</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)</code></pre>
+<pre><code>## For execution on a local, multicore CPU with excess RAM we recommend calling
+## options(mc.cores = parallel::detectCores()).
+## To avoid recompilation of unchanged Stan programs, we recommend calling
+## rstan_options(auto_write = TRUE)</code></pre>
+<pre class="r"><code>rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+
+stancode &lt;- &quot;
+data {
+  int&lt;lower=0&gt; J; // number of schools 
+  real y[J]; // estimated treatment effects
+  real&lt;lower=0&gt; sigma[J]; // s.e. of effect estimates 
+}
+parameters {
+  real mu; 
+  real&lt;lower=0&gt; tau;
+  real eta[J];
+}
+transformed parameters {
+  real theta[J];
+  for (j in 1:J)
+  theta[j] = mu + tau * eta[j];
+}
+model {
+  target += normal_lpdf(eta | 0, 1);
+  target += normal_lpdf(y | theta, sigma);
+}
+&quot;
+
+schools_dat &lt;- list(
+  J = 8, y = c(28, 8, -3, 7, -1, 1, 18, 12),
+  sigma = c(15, 10, 16, 11, 9, 11, 10, 18)
+)
+
+model.ex &lt;- stan_model(model_code = stancode, model_name = &quot;school&quot;)
+fit.ML &lt;- optimizing(model.ex, data = schools_dat)
+fit.samp &lt;- sampling(model.ex,
+  data = schools_dat, iter = 1000,
+  chains = 4
+)
+fit.vb &lt;- vb(model.ex, data = schools_dat)</code></pre>
+<pre><code>## Chain 1: ------------------------------------------------------------
+## Chain 1: EXPERIMENTAL ALGORITHM:
+## Chain 1:   This procedure has not been thoroughly tested and may be unstable
+## Chain 1:   or buggy. The interface is subject to change.
+## Chain 1: ------------------------------------------------------------
+## Chain 1: 
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Gradient evaluation took 2.2e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.22 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Begin eta adaptation.
+## Chain 1: Iteration:   1 / 250 [  0%]  (Adaptation)
+## Chain 1: Iteration:  50 / 250 [ 20%]  (Adaptation)
+## Chain 1: Iteration: 100 / 250 [ 40%]  (Adaptation)
+## Chain 1: Iteration: 150 / 250 [ 60%]  (Adaptation)
+## Chain 1: Iteration: 200 / 250 [ 80%]  (Adaptation)
+## Chain 1: Success! Found best value [eta = 1] earlier than expected.
+## Chain 1: 
+## Chain 1: Begin stochastic gradient ascent.
+## Chain 1:   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes 
+## Chain 1:    100          -25.581             1.000            1.000
+## Chain 1:    200          -25.756             0.503            1.000
+## Chain 1:    300          -26.476             0.345            0.027
+## Chain 1:    400          -25.707             0.266            0.030
+## Chain 1:    500          -26.123             0.216            0.027
+## Chain 1:    600          -25.510             0.184            0.027
+## Chain 1:    700          -25.643             0.158            0.024
+## Chain 1:    800          -26.031             0.140            0.024
+## Chain 1:    900          -25.685             0.126            0.016
+## Chain 1:   1000          -26.637             0.117            0.024
+## Chain 1:   1100          -26.456             0.018            0.016
+## Chain 1:   1200          -25.415             0.021            0.024
+## Chain 1:   1300          -26.074             0.021            0.024
+## Chain 1:   1400          -26.335             0.019            0.016
+## Chain 1:   1500          -25.383             0.021            0.024
+## Chain 1:   1600          -26.309             0.023            0.025
+## Chain 1:   1700          -25.701             0.024            0.025
+## Chain 1:   1800          -25.210             0.025            0.025
+## Chain 1:   1900          -25.454             0.024            0.025
+## Chain 1:   2000          -26.244             0.024            0.025
+## Chain 1:   2100          -25.777             0.025            0.025
+## Chain 1:   2200          -25.748             0.021            0.024
+## Chain 1:   2300          -25.794             0.019            0.019
+## Chain 1:   2400          -25.594             0.018            0.019
+## Chain 1:   2500          -25.767             0.015            0.018
+## Chain 1:   2600          -25.469             0.013            0.012
+## Chain 1:   2700          -25.460             0.011            0.010   MEDIAN ELBO CONVERGED
+## Chain 1: 
+## Chain 1: Drawing a sample of size 1000 from the approximate posterior... 
+## Chain 1: COMPLETED.</code></pre>
+<pre class="r"><code>fit.ML</code></pre>
+<pre><code>## $par
+##            mu           tau        eta[1]        eta[2]        eta[3] 
+##  8.356430e+00  9.772723e+03  2.009936e-03 -3.643953e-05 -1.162004e-03 
+##        eta[4]        eta[5]        eta[6]        eta[7]        eta[8] 
+## -1.387875e-04 -9.574354e-04 -7.526838e-04  9.867454e-04  3.728023e-04 
+##      theta[1]      theta[2]      theta[3]      theta[4]      theta[5] 
+##  2.799898e+01  8.000316e+00 -2.999514e+00  7.000098e+00 -1.000321e+00 
+##      theta[6]      theta[7]      theta[8] 
+##  1.000660e+00  1.799962e+01  1.199972e+01 
+## 
+## $value
+## [1] -34.67222
+## 
+## $return_code
+## [1] 0
+## 
+## $theta_tilde
+##           mu      tau      eta[1]        eta[2]       eta[3]        eta[4]
+## [1,] 8.35643 9772.723 0.002009936 -3.643953e-05 -0.001162004 -0.0001387875
+##             eta[5]        eta[6]       eta[7]       eta[8] theta[1] theta[2]
+## [1,] -0.0009574354 -0.0007526838 0.0009867454 0.0003728023 27.99898 8.000316
+##       theta[3] theta[4]  theta[5] theta[6] theta[7] theta[8]
+## [1,] -2.999514 7.000098 -1.000321  1.00066 17.99962 11.99972</code></pre>
+<pre class="r"><code>fit.samp</code></pre>
+<pre><code>## Inference for Stan model: school.
+## 4 chains, each with iter=1000; warmup=500; thin=1; 
+## post-warmup draws per chain=500, total post-warmup draws=2000.
+## 
+##            mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
+## mu         7.97    0.18 4.87  -1.07   4.70   7.80  10.95  18.19   750 1.01
+## tau        6.22    0.19 5.19   0.23   2.31   5.14   8.75  20.02   747 1.00
+## eta[1]     0.34    0.02 0.94  -1.52  -0.30   0.35   0.98   2.12  1889 1.00
+## eta[2]    -0.01    0.02 0.88  -1.80  -0.57  -0.01   0.55   1.77  1840 1.00
+## eta[3]    -0.19    0.02 0.94  -2.05  -0.83  -0.19   0.43   1.73  1835 1.00
+## eta[4]    -0.06    0.02 0.94  -1.83  -0.68  -0.09   0.54   1.93  1689 1.00
+## eta[5]    -0.36    0.02 0.88  -2.05  -0.92  -0.37   0.20   1.44  1436 1.00
+## eta[6]    -0.25    0.02 0.92  -2.00  -0.87  -0.26   0.36   1.57  1885 1.00
+## eta[7]     0.35    0.02 0.90  -1.49  -0.20   0.35   0.92   2.14  1488 1.00
+## eta[8]     0.05    0.02 0.92  -1.67  -0.59   0.05   0.65   1.88  1821 1.00
+## theta[1]  10.95    0.22 8.16  -2.19   5.70   9.69  14.84  30.16  1354 1.00
+## theta[2]   7.74    0.17 6.31  -5.47   4.01   7.71  11.42  20.55  1340 1.00
+## theta[3]   6.42    0.20 7.63 -11.32   2.55   6.85  10.83  20.78  1439 1.00
+## theta[4]   7.53    0.16 6.49  -5.49   3.60   7.51  11.65  20.60  1729 1.00
+## theta[5]   5.15    0.16 6.19  -8.99   1.63   5.76   9.27  16.38  1450 1.00
+## theta[6]   5.99    0.15 6.57  -8.69   2.31   6.42  10.27  18.09  1988 1.00
+## theta[7]  10.49    0.16 6.51  -0.93   6.16   9.78  14.15  25.45  1572 1.00
+## theta[8]   8.35    0.20 7.66  -6.30   3.88   7.95  12.26  25.76  1541 1.00
+## lp__     -39.70    0.10 2.72 -45.72 -41.15 -39.39 -37.84 -35.38   688 1.00
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Feb 20 11:37:44 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<pre class="r"><code>fit.vb</code></pre>
+<pre><code>## Inference for Stan model: school.
+## 1 chains, each with iter=1000; warmup=0; thin=1; 
+## post-warmup draws per chain=1000, total post-warmup draws=1000.
+## 
+##           mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff khat
+## mu        7.64     NaN 4.78 -1.33  4.33  7.38 10.89 16.93   NaN 0.56
+## tau       4.17     NaN 3.48  0.79  2.05  3.17  5.12 13.28   NaN 0.64
+## eta[1]    0.29     NaN 0.96 -1.52 -0.39  0.29  0.96  2.14   NaN 0.45
+## eta[2]   -0.02     NaN 0.88 -1.74 -0.64 -0.01  0.57  1.62   NaN 0.41
+## eta[3]   -0.20     NaN 1.02 -2.19 -0.90 -0.19  0.47  1.75   NaN 0.60
+## eta[4]    0.07     NaN 0.91 -1.62 -0.54  0.05  0.69  1.90   NaN 0.46
+## eta[5]   -0.35     NaN 0.87 -1.96 -0.97 -0.35  0.25  1.30   NaN 0.41
+## eta[6]   -0.18     NaN 0.90 -1.97 -0.78 -0.14  0.43  1.47   NaN 0.45
+## eta[7]    0.46     NaN 0.95 -1.25 -0.23  0.47  1.08  2.45   NaN 0.42
+## eta[8]   -0.06     NaN 1.11 -2.20 -0.79 -0.06  0.68  2.07   NaN 0.54
+## theta[1]  8.91     NaN 6.89 -3.75  4.55  8.52 13.02 23.61   NaN 0.47
+## theta[2]  7.64     NaN 6.41 -5.38  3.54  7.54 11.80 19.43   NaN 0.58
+## theta[3]  6.94     NaN 7.33 -7.65  2.61  6.88 11.57 20.72   NaN 0.43
+## theta[4]  7.90     NaN 6.96 -4.91  3.77  7.87 11.80 21.59   NaN 0.44
+## theta[5]  6.19     NaN 6.85 -7.17  2.41  6.31 10.48 18.33   NaN 0.50
+## theta[6]  6.84     NaN 6.90 -6.24  2.95  7.03 11.03 18.71   NaN 0.62
+## theta[7]  9.79     NaN 7.86 -3.22  5.22  9.21 13.63 26.61   NaN 0.67
+## theta[8]  7.38     NaN 7.80 -8.38  2.72  7.60 12.24 21.89   NaN 0.66
+## lp__      0.00     NaN 0.00  0.00  0.00  0.00  0.00  0.00   NaN 0.51
+## 
+## Approximate samples were drawn using VB(meanfield) at Sat Feb 20 11:37:44 2021.</code></pre>
+<pre><code>## We recommend genuine &#39;sampling&#39; from the posterior distribution for final inferences!</code></pre>
+</div>
+</div>
+<div id="mcmcで何を行っているか" class="section level2">
+<h2>MCMCで何を行っているか</h2>
+<div id="mcmcの結果の確認" class="section level4">
+<h4>MCMCの結果の確認</h4>
+<ul>
+<li>Rhat</li>
+<li>Effective Sample Size</li>
+</ul>
+</div>
+<div id="可視化" class="section level4">
+<h4>可視化</h4>
+<pre class="r"><code>plot(fit.samp)</code></pre>
+<pre><code>## &#39;pars&#39; not specified. Showing first 10 parameters by default.</code></pre>
+<pre><code>## ci_level: 0.8 (80% intervals)</code></pre>
+<pre><code>## outer_level: 0.95 (95% intervals)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>plot(fit.samp, show_density = TRUE)</code></pre>
+<pre><code>## &#39;pars&#39; not specified. Showing first 10 parameters by default.</code></pre>
+<pre><code>## ci_level: 0.8 (80% intervals)</code></pre>
+<pre><code>## outer_level: 0.95 (95% intervals)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<pre class="r"><code>library(bayesplot)</code></pre>
+<pre><code>## This is bayesplot version 1.8.0</code></pre>
+<pre><code>## - Online documentation and vignettes at mc-stan.org/bayesplot</code></pre>
+<pre><code>## - bayesplot theme set to bayesplot::theme_default()</code></pre>
+<pre><code>##    * Does _not_ affect other ggplot2 plots</code></pre>
+<pre><code>##    * See ?bayesplot_theme_set for details on theme setting</code></pre>
+<pre class="r"><code>mcmc_areas(fit.samp)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
+<pre class="r"><code>mcmc_combo(fit.samp, pars = &quot;mu&quot;)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-4.png" width="672" /></p>
+<pre class="r"><code>mcmc_dens(fit.samp, pars = &quot;mu&quot;)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-5.png" width="672" /></p>
+<pre class="r"><code>mcmc_dens_chains(fit.samp, pars = &quot;mu&quot;)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-6.png" width="672" /></p>
+<pre class="r"><code>mcmc_areas_ridges(fit.samp, regex_pars = &quot;^eta\\[&quot;, prob = 0.95, prob_outer = 1)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-7.png" width="672" /></p>
+<pre class="r"><code>rhat(fit.samp)</code></pre>
+<pre><code>##        mu       tau    eta[1]    eta[2]    eta[3]    eta[4]    eta[5]    eta[6] 
+## 1.0051228 1.0043029 0.9998513 0.9993338 0.9989901 0.9991089 0.9991303 1.0012510 
+##    eta[7]    eta[8]  theta[1]  theta[2]  theta[3]  theta[4]  theta[5]  theta[6] 
+## 1.0010921 1.0001541 1.0006064 1.0000514 1.0025081 1.0004954 1.0017842 0.9994371 
+##  theta[7]  theta[8]      lp__ 
+## 1.0032853 1.0021338 1.0039774</code></pre>
+<pre class="r"><code>mcmc_rhat(rhat(fit.samp))</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-8.png" width="672" /></p>
+<pre class="r"><code>traceplot(fit.samp, inc_warmup = T)</code></pre>
+<pre><code>## &#39;pars&#39; not specified. Showing first 10 parameters by default.</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-12-9.png" width="672" /></p>
+<pre class="r"><code>library(bayestestR)</code></pre>
+<pre><code>## Note: The default CI width (currently `ci=0.89`) might change in future versions (see https://github.com/easystats/bayestestR/discussions/250). To prevent any issues, please set it explicitly when using bayestestR functions, via the &#39;ci&#39; argument.</code></pre>
+<pre class="r"><code>hdi(fit.samp, ci = 0.90)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Parameter</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="left">Effects</th>
+<th align="left">Component</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">9</td>
+<td align="left">mu</td>
+<td align="right">0.9</td>
+<td align="right">-0.7772831</td>
+<td align="right">15.247022</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="left">tau</td>
+<td align="right">0.9</td>
+<td align="right">0.0044565</td>
+<td align="right">12.903652</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">eta[1]</td>
+<td align="right">0.9</td>
+<td align="right">-1.1954184</td>
+<td align="right">1.845335</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">eta[2]</td>
+<td align="right">0.9</td>
+<td align="right">-1.3537325</td>
+<td align="right">1.544777</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">eta[3]</td>
+<td align="right">0.9</td>
+<td align="right">-1.7772894</td>
+<td align="right">1.306023</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">eta[4]</td>
+<td align="right">0.9</td>
+<td align="right">-1.5300320</td>
+<td align="right">1.541219</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">eta[5]</td>
+<td align="right">0.9</td>
+<td align="right">-1.7963951</td>
+<td align="right">1.122480</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="left">eta[6]</td>
+<td align="right">0.9</td>
+<td align="right">-1.7321989</td>
+<td align="right">1.194652</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left">eta[7]</td>
+<td align="right">0.9</td>
+<td align="right">-1.1948004</td>
+<td align="right">1.797640</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="left">eta[8]</td>
+<td align="right">0.9</td>
+<td align="right">-1.4224309</td>
+<td align="right">1.586941</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">11</td>
+<td align="left">theta[1]</td>
+<td align="right">0.9</td>
+<td align="right">-2.9027497</td>
+<td align="right">23.497935</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
+<td align="left">theta[2]</td>
+<td align="right">0.9</td>
+<td align="right">-2.6355982</td>
+<td align="right">17.587995</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">13</td>
+<td align="left">theta[3]</td>
+<td align="right">0.9</td>
+<td align="right">-4.4791850</td>
+<td align="right">19.874373</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">14</td>
+<td align="left">theta[4]</td>
+<td align="right">0.9</td>
+<td align="right">-3.1722230</td>
+<td align="right">18.257040</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">15</td>
+<td align="left">theta[5]</td>
+<td align="right">0.9</td>
+<td align="right">-4.6257692</td>
+<td align="right">15.139447</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">16</td>
+<td align="left">theta[6]</td>
+<td align="right">0.9</td>
+<td align="right">-4.9010900</td>
+<td align="right">16.663366</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="odd">
+<td align="left">17</td>
+<td align="left">theta[7]</td>
+<td align="right">0.9</td>
+<td align="right">0.3194331</td>
+<td align="right">21.707026</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+<tr class="even">
+<td align="left">18</td>
+<td align="left">theta[8]</td>
+<td align="right">0.9</td>
+<td align="right">-4.6643404</td>
+<td align="right">20.100171</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>map_estimate(fit.samp)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="right">MAP_Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mu</td>
+<td align="right">8.4391512</td>
+</tr>
+<tr class="even">
+<td align="left">tau</td>
+<td align="right">0.7827862</td>
+</tr>
+<tr class="odd">
+<td align="left">eta[1]</td>
+<td align="right">0.0203186</td>
+</tr>
+<tr class="even">
+<td align="left">eta[2]</td>
+<td align="right">-0.0038834</td>
+</tr>
+<tr class="odd">
+<td align="left">eta[3]</td>
+<td align="right">-0.2043186</td>
+</tr>
+<tr class="even">
+<td align="left">eta[4]</td>
+<td align="right">-0.2150769</td>
+</tr>
+<tr class="odd">
+<td align="left">eta[5]</td>
+<td align="right">-0.4789859</td>
+</tr>
+<tr class="even">
+<td align="left">eta[6]</td>
+<td align="right">-0.3475387</td>
+</tr>
+<tr class="odd">
+<td align="left">eta[7]</td>
+<td align="right">0.3731896</td>
+</tr>
+<tr class="even">
+<td align="left">eta[8]</td>
+<td align="right">0.1235993</td>
+</tr>
+<tr class="odd">
+<td align="left">theta[1]</td>
+<td align="right">8.3118545</td>
+</tr>
+<tr class="even">
+<td align="left">theta[2]</td>
+<td align="right">7.5837565</td>
+</tr>
+<tr class="odd">
+<td align="left">theta[3]</td>
+<td align="right">6.8392690</td>
+</tr>
+<tr class="even">
+<td align="left">theta[4]</td>
+<td align="right">7.2794067</td>
+</tr>
+<tr class="odd">
+<td align="left">theta[5]</td>
+<td align="right">6.5722939</td>
+</tr>
+<tr class="even">
+<td align="left">theta[6]</td>
+<td align="right">7.2025967</td>
+</tr>
+<tr class="odd">
+<td align="left">theta[7]</td>
+<td align="right">9.0673084</td>
+</tr>
+<tr class="even">
+<td align="left">theta[8]</td>
+<td align="right">7.3244116</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="パラメータリカバリという考え方" class="section level2">
+<h2>パラメータリカバリという考え方</h2>
+<p>→資料</p>
+</div>
+<div id="ベルヌーイ分布で遊んでみよう" class="section level2">
+<h2>ベルヌーイ分布で遊んでみよう</h2>
+<pre class="r"><code>set.seed(12345)
+N &lt;- 100
+theta &lt;- 0.3
+X &lt;- rbinom(N, 1, theta)
+X</code></pre>
+<pre><code>##   [1] 1 1 1 1 0 0 0 0 1 1 0 0 1 0 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0 1
+##  [38] 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 0 0 1 0 1 0 0 0 1 0 1 1 1 0 1 0 0 1 0 0 0 0
+##  [75] 0 0 1 0 0 0 1 0 0 0 0 0 1 0 1 0 1 1 0 0 1 0 1 1 0 0</code></pre>
+<pre class="r"><code>mean(X)</code></pre>
+<pre><code>## [1] 0.35</code></pre>
+<pre><code>## data{
+##   int N;
+##   int Y[N];
+## }
+## 
+## parameters{
+##   real&lt;lower=0,upper=1&gt; theta;
+## }
+## 
+## model{
+##   for(n in 1:N){
+##     Y[n] ~ bernoulli(theta);
+##   }
+## }</code></pre>
+<pre class="r"><code># コンパイル
+model.bern &lt;- stan_model(&quot;bernoulli.stan&quot;, model_name = &quot;sample1&quot;)
+# データの準備
+dataSet &lt;- list(N = N, Y = X)
+# サンプリング
+fit &lt;- sampling(model.bern, dataSet)
+# 結果表示
+fit</code></pre>
+<pre><code>## Inference for Stan model: bernoulli.
+## 4 chains, each with iter=2000; warmup=1000; thin=1; 
+## post-warmup draws per chain=1000, total post-warmup draws=4000.
+## 
+##         mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
+## theta   0.35    0.00 0.05   0.27   0.32   0.35   0.39   0.45  1376    1
+## lp__  -66.71    0.02 0.69 -68.67 -66.86 -66.45 -66.27 -66.22  1572    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Feb 20 11:37:59 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<pre class="r"><code>map_estimate(fit)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="right">MAP_Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">theta</td>
+<td align="right">0.3410187</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>hdi(fit, ci = 0.9)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="left">Effects</th>
+<th align="left">Component</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">theta</td>
+<td align="right">0.9</td>
+<td align="right">0.2801652</td>
+<td align="right">0.4302667</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code># 可視化
+mcmc_dens(fit)</code></pre>
+<p><img src="day1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div id="mcmcサンプルが増えるとどうなるか" class="section level4">
+<h4>MCMCサンプルが増えるとどうなるか</h4>
+<pre class="r"><code>fit &lt;- sampling(model.bern, dataSet, iter = 50000, chains = 3)
+fit</code></pre>
+<pre><code>## Inference for Stan model: bernoulli.
+## 3 chains, each with iter=50000; warmup=25000; thin=1; 
+## post-warmup draws per chain=25000, total post-warmup draws=75000.
+## 
+##         mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
+## theta   0.35       0 0.05   0.26   0.32   0.35   0.38   0.45 25242    1
+## lp__  -66.73       0 0.71 -68.74 -66.89 -66.45 -66.27 -66.22 35455    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Feb 20 11:38:02 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<pre class="r"><code>map_estimate(fit)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="right">MAP_Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">theta</td>
+<td align="right">0.3465957</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="データ数が変わるとどうなるか" class="section level4">
+<h4>データ数が変わるとどうなるか</h4>
+<pre class="r"><code>set.seed(12345)
+N &lt;- 10
+theta &lt;- 0.3
+X &lt;- rbinom(N, 1, theta)
+X</code></pre>
+<pre><code>##  [1] 1 1 1 1 0 0 0 0 1 1</code></pre>
+<pre class="r"><code>mean(X)</code></pre>
+<pre><code>## [1] 0.6</code></pre>
+<pre class="r"><code>dataSet &lt;- list(N = N, Y = X)
+fit &lt;- sampling(model.bern, dataSet, iter = 50000, chains = 3)
+fit</code></pre>
+<pre><code>## Inference for Stan model: bernoulli.
+## 3 chains, each with iter=50000; warmup=25000; thin=1; 
+## post-warmup draws per chain=25000, total post-warmup draws=75000.
+## 
+##        mean se_mean   sd   2.5%   25%   50%   75% 97.5% n_eff Rhat
+## theta  0.58       0 0.14   0.31  0.49  0.59  0.68  0.83 28117    1
+## lp__  -8.67       0 0.74 -10.76 -8.84 -8.39 -8.20 -8.15 27220    1
+## 
+## Samples were drawn using NUTS(diag_e) at Sat Feb 20 11:38:04 2021.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).</code></pre>
+<pre class="r"><code>map_estimate(fit)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="right">MAP_Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">theta</td>
+<td align="right">0.587151</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r"><code>hdi(fit)</code></pre>
+<div class="kable-table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="right">CI</th>
+<th align="right">CI_low</th>
+<th align="right">CI_high</th>
+<th align="left">Effects</th>
+<th align="left">Component</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">theta</td>
+<td align="right">0.89</td>
+<td align="right">0.3625532</td>
+<td align="right">0.7990425</td>
+<td align="left">fixed</td>
+<td align="left">conditional</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -422,7 +1244,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

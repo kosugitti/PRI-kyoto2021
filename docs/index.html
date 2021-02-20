@@ -13,13 +13,22 @@
 
 <title>はじめに</title>
 
-<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -37,11 +46,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -54,32 +58,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 <link rel="stylesheet" href="site_style.css" type="text/css" />
@@ -91,10 +69,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -111,40 +85,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -172,7 +119,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -184,7 +131,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -195,10 +142,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -210,7 +170,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -336,13 +295,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -379,7 +338,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -411,7 +370,7 @@ div.tocify {
 </div>
 <div id="rの最新版を準備する" class="section level2">
 <h2>Rの最新版を準備する</h2>
-<p>Rのサイトは<a href="https://cloud.r-project.org/">こちら</a>です。Rの最新バージョンは4.0.3ですので，ご準備ください。</p>
+<p>Rのサイトは<a href="https://cloud.r-project.org/">こちら</a>です。Rの最新バージョンは4.0.4です。少なくとも4.0.x以上の環境をご準備ください。</p>
 <div id="windowsユーザの場合" class="section level3">
 <h3>Windowsユーザの場合</h3>
 <ul>
@@ -424,7 +383,7 @@ div.tocify {
 <div id="macユーザの場合" class="section level3">
 <h3>Macユーザの場合</h3>
 <ul>
-<li>Download R for (Mac) OS Xより，R-4.0.3.pkgをダウンロードし，実行してください。</li>
+<li>Download R for (Mac) OS Xより，R-4.0.4.pkgをダウンロードし，実行してください。</li>
 </ul>
 </div>
 </div>
@@ -463,43 +422,61 @@ target += normal_lpdf(eta | 0, 1);
 target += normal_lpdf(y | theta, sigma);
 }
 &quot;
-schools_dat &lt;- list(J = 8, y = c(28, 8, -3, 7, -1, 1, 18, 12), 
-                    sigma = c(15, 10, 16, 11, 9, 11, 10, 18))
+schools_dat &lt;- list(
+  J = 8, y = c(28, 8, -3, 7, -1, 1, 18, 12),
+  sigma = c(15, 10, 16, 11, 9, 11, 10, 18)
+)
 model.ex &lt;- stan_model(model_code = stancode, model_name = &quot;school&quot;)
-fit.samp &lt;- sampling(model.ex, data = schools_dat, iter = 1000, 
-                     chains = 4)
+fit.samp &lt;- sampling(model.ex,
+  data = schools_dat, iter = 1000,
+  chains = 4
+)
 fit.samp</code></pre>
 <pre><code>## Inference for Stan model: school.
 ## 4 chains, each with iter=1000; warmup=500; thin=1; 
 ## post-warmup draws per chain=500, total post-warmup draws=2000.
 ## 
 ##            mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
-## mu         7.85    0.19 5.00  -1.73   4.56   7.82  10.96  17.55   680    1
-## tau        6.36    0.22 5.40   0.26   2.43   5.14   8.82  19.56   613    1
-## eta[1]     0.35    0.02 0.96  -1.58  -0.32   0.38   0.99   2.23  1949    1
-## eta[2]    -0.03    0.02 0.85  -1.78  -0.62  -0.05   0.54   1.59  2182    1
-## eta[3]    -0.22    0.02 0.97  -2.11  -0.86  -0.25   0.43   1.69  1771    1
-## eta[4]     0.00    0.02 0.88  -1.67  -0.60  -0.02   0.56   1.76  2181    1
-## eta[5]    -0.34    0.02 0.93  -2.13  -0.96  -0.36   0.27   1.51  1529    1
-## eta[6]    -0.24    0.02 0.84  -1.88  -0.82  -0.23   0.35   1.36  1823    1
-## eta[7]     0.34    0.02 0.90  -1.47  -0.23   0.36   0.96   2.06  1938    1
-## eta[8]     0.03    0.02 0.93  -1.84  -0.57   0.03   0.66   1.79  1783    1
-## theta[1]  11.06    0.26 8.28  -2.30   5.80   9.86  14.96  30.55  1049    1
-## theta[2]   7.71    0.13 6.03  -5.01   3.91   7.76  11.77  19.85  2290    1
-## theta[3]   5.94    0.19 7.88 -11.19   1.65   6.29  10.88  19.82  1797    1
-## theta[4]   7.72    0.14 6.50  -5.50   3.86   7.82  11.64  21.04  2208    1
-## theta[5]   5.32    0.14 6.34  -8.10   1.31   5.72   9.72  16.64  1961    1
-## theta[6]   5.98    0.13 6.30  -7.91   2.47   6.25  10.19  17.26  2476    1
-## theta[7]  10.41    0.16 6.73  -1.65   5.78   9.76  14.34  25.12  1839    1
-## theta[8]   8.41    0.18 7.73  -6.60   4.02   8.23  12.62  25.24  1775    1
-## lp__     -39.61    0.12 2.62 -45.19 -41.16 -39.33 -37.81 -35.04   510    1
+## mu         7.77    0.13 4.95  -1.71   4.38   7.74  11.19  17.50  1353 1.00
+## tau        6.30    0.19 5.16   0.20   2.29   5.11   8.93  19.03   766 1.01
+## eta[1]     0.39    0.02 0.95  -1.52  -0.28   0.42   1.05   2.21  1507 1.00
+## eta[2]     0.01    0.02 0.88  -1.78  -0.55   0.01   0.57   1.80  1974 1.00
+## eta[3]    -0.19    0.02 0.95  -1.96  -0.84  -0.22   0.45   1.66  2038 1.00
+## eta[4]    -0.01    0.02 0.88  -1.78  -0.58  -0.01   0.53   1.75  2407 1.00
+## eta[5]    -0.35    0.02 0.90  -2.10  -0.93  -0.40   0.23   1.46  1888 1.00
+## eta[6]    -0.20    0.02 0.90  -1.98  -0.78  -0.19   0.38   1.62  1771 1.00
+## eta[7]     0.37    0.02 0.85  -1.31  -0.20   0.38   0.94   2.03  1737 1.00
+## eta[8]     0.08    0.02 0.96  -1.80  -0.54   0.07   0.71   1.93  1994 1.00
+## theta[1]  11.20    0.20 8.21  -2.20   5.86   9.86  15.30  30.21  1693 1.00
+## theta[2]   7.84    0.13 6.22  -4.34   3.53   7.83  11.97  21.09  2126 1.00
+## theta[3]   6.25    0.19 7.81 -11.90   2.19   6.70  10.87  20.95  1703 1.00
+## theta[4]   7.68    0.13 6.40  -5.10   3.69   7.73  11.62  20.17  2492 1.00
+## theta[5]   5.03    0.15 6.37  -9.06   1.25   5.44   9.16  17.17  1856 1.00
+## theta[6]   6.20    0.14 6.61  -7.58   2.25   6.45  10.47  18.59  2183 1.00
+## theta[7]  10.49    0.16 6.42  -1.11   6.12  10.19  14.30  24.74  1692 1.00
+## theta[8]   8.52    0.18 7.77  -6.88   3.82   8.06  12.78  25.42  1954 1.00
+## lp__     -39.64    0.11 2.60 -45.45 -41.20 -39.41 -37.80 -35.35   602 1.00
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon Feb  8 17:28:40 2021.
+## Samples were drawn using NUTS(diag_e) at Sat Feb 20 11:59:19 2021.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
 <p>なにやら上記のような文字列が出ていたら準備完了です。</p>
 <p>Rのコードについては，本サイトからコピー＆ペーストで使ってもらって結構ですが，Rの基本的な使い方，RStudioの基本的な使い方，ggplotによる描画の方法などについて，「<a href="https://amzn.to/2GmX9Ot">RユーザのためのRStudio入門</a>」 を参考に予習しておいていただけると，理解が進むと思います。</p>
+</div>
+<div id="必要なパッケージなど" class="section level2">
+<h2>必要なパッケージなど</h2>
+<p>次のパッケージを授業の中で使いますので，合わせてご準備ください。</p>
+<ul>
+<li>tidyverse</li>
+<li>bayesplot</li>
+<li>bayestestR</li>
+<li>brms</li>
+<li>bridgesampling</li>
+<li>effectsize</li>
+<li>loo</li>
+<li>MASS</li>
+</ul>
 </div>
 </div>
 
@@ -532,7 +509,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

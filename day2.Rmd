@@ -3,6 +3,144 @@ title: "Day 2;2021.02.25"
 output: html_document
 ---
 
-## Day 2
+# Day 2
 
-now under construction.
+## 帰無仮説検定をやってみる
+
+サンプルデータセットを使います。[こちら](baseball2020.csv)からダウンロードし，プロジェクトフォルダに保存してください。
+次のパッケージやコードを使って読み込みます。
+
+```{r}
+library(tidyverse)
+dat <- read_csv("baseball2020.csv") %>%
+  ## データを処理しやすくするために，少し加工します。
+  # 文字列を要因型に変形
+  dplyr::mutate_if(is.character, as.factor) %>%
+  # セリーグとパリーグを作る
+  dplyr::mutate(league = if_else(team %in% c("Giants", "Tigers", "Carp", "Dragons", "Swallows", "DeNA"), 1, 2) %>%
+    factor(., labels = c("Central", "Pasific")))
+
+summary(dat)
+```
+
+身長のデータを使って，セリーグとパリーグの選手の身長に差があるかどうか検定します。
+```{r}
+# データの一部を抜き出す
+dat1 <- dat %>% select(league, height)
+
+# 可視化する
+dat1 %>%
+  ggplot(mapping = aes(x = height, fill = league)) +
+  geom_histogram(position = "dodge", binwidth = 1, alpha = 0.5)
+
+# 検定
+t.test(height ~ league, data = dat1, var.equal = T)
+## 分散が異なると仮定する
+t.test(height ~ league, data = dat1, var.equal = F)
+
+## 事後的に効果量を考える
+library(effsize)
+cohen.d(height ~ league, data = dat1)
+cohen.d(height ~ league, data = dat1, hedges.correction = T)
+```
+
+## ベイズ的仮説検定
+
+### HDIをみて考える
+
+```{r, echo=FALSE, eval=TRUE}
+cat(paste(readLines("ttest_plain.stan"), collapse = "\n"))
+```
+
+```{r}
+library(rstan)
+options(mc.cores = parallel::detectCores())
+model_plain <- stan_model("ttest_plain.stan")
+Cleague <- dat1 %>%
+  filter(league == "Central") %>%
+  select(height)
+Pleague <- dat1 %>%
+  filter(league == "Pasific") %>%
+  select(height)
+dataSet <- list(
+  N1 = NROW(Cleague),
+  N2 = NROW(Pleague),
+  X1 = Cleague$height,
+  X2 = Pleague$height
+)
+## サンプリング
+fit1 <- sampling(model_plain, dataSet, iter = 5000)
+fit1
+library(bayesplot)
+library(bayestestR)
+bayesplot::mcmc_dens(fit1, pars = c("mu", "delta"))
+bayestestR::map_estimate(fit1)
+bayestestR::hdi(fit1, ci = 0.5)
+```
+
+### Bridge Sampling法によるモデル比較
+
+#### Null Model
+
+```{r, echo=FALSE, eval=TRUE}
+cat(paste(readLines("ttest_BF1.stan"), collapse = "\n"))
+```
+
+#### Alternative Model
+
+```{r, echo=FALSE, eval=TRUE}
+cat(paste(readLines("ttest_BF2.stan"), collapse = "\n"))
+```
+
+```{r}
+## サンプリング
+model_bf1 <- stan_model("ttest_BF1.stan")
+model_bf2 <- stan_model("ttest_BF2.stan")
+
+fit.bf1 <- sampling(model_bf1, dataSet, iter = 5000)
+fit.bf2 <- sampling(model_bf2, dataSet, iter = 5000)
+
+library(bridgesampling)
+H0 <- bridge_sampler(fit.bf1, method = "normal", silent = TRUE)
+H1 <- bridge_sampler(fit.bf2, method = "normal", silent = TRUE)
+bridgesampling::bf(H1, H0)
+```
+
+#### 仮想データを作って色々確かめてみよう
+
+```{r}
+set.seed(12345)
+N <- 100
+mu <- 5
+sigma <- 1
+delta <- 0.5
+
+alpha <- delta * sigma
+muX <- mu + alpha / 2
+muY <- mu - alpha / 2
+
+X1 <- rnorm(N, muX, sigma)
+X2 <- rnorm(N, muY, sigma)
+t.test(X1, X2)
+cohen.d(X1, X2, hedges.correction = T)
+```
+
+#### 生成量を使った検証
+
+```{r, echo=FALSE, eval=TRUE}
+cat(paste(readLines("ttest_GQ.stan"), collapse = "\n"))
+```
+
+```{r}
+model_GQ <- stan_model("ttest_GQ.stan")
+dataSet <- list(
+  N1 = N,
+  N2 = N,
+  X1 = X1,
+  X2 = X2
+)
+fit.GQ <- sampling(model_GQ, dataSet)
+## サンプルの一部を取り出す
+samples <- rstan::extract(fit.GQ) %>% as.tibble()
+summary(samples)
+```
